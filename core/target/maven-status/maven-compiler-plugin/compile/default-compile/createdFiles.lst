@@ -1,1 +1,3 @@
 com\guillermo\leif\core\Application.class
+com\guillermo\leif\core\AppConfig.class
+com\guillermo\leif\core\AppContextCreator.class

@@ -1,0 +1,7 @@
+com\guillermo\leif\inputReaders\bingoBoard\BoardElement.class
+com\guillermo\leif\inputReaders\bingoBoard\SingleBingoBoard.class
+com\guillermo\leif\inputReaders\bingoBoard\BingoReader.class
+com\guillermo\leif\inputReaders\BinaryDiagnosticReader.class
+com\guillermo\leif\inputReaders\bingoBoard\BingoBoardDimensions.class
+com\guillermo\leif\inputReaders\AllLineReader.class
+com\guillermo\leif\inputReaders\bingoBoard\Util.class
