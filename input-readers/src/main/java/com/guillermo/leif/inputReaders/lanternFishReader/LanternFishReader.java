@@ -12,9 +12,9 @@ import com.guillermo.leif.inputReaders.AllLineReader;
 @Component
 public class LanternFishReader extends AllLineReader {
 
-	public List<Integer> getLanternFishAges(String fileName) throws IOException {
+	public List<Long> getLanternFishAges(String fileName) throws IOException {
 		List<String> lines = readAllLinesFromFile(fileName);
-		return Stream.of(lines.get(0).split(",")).map(Integer::parseInt).collect(Collectors.toList());
+		return Stream.of(lines.get(0).split(",")).map(Long::parseLong).collect(Collectors.toList());
 	}
 
 }
