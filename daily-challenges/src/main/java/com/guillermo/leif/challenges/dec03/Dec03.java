@@ -1,7 +1,7 @@
 package com.guillermo.leif.challenges.dec03;
 
 import com.guillermo.leif.challenges.Challenge;
-import com.guillermo.leif.inputReaders.BinaryDiagnosticReader;
+import com.guillermo.leif.inputReaders.binaryDiagnostic.BinaryDiagnosticReader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

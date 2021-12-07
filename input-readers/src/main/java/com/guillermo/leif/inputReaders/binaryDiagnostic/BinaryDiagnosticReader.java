@@ -1,11 +1,13 @@
-package com.guillermo.leif.inputReaders;
-
-import org.springframework.stereotype.Component;
+package com.guillermo.leif.inputReaders.binaryDiagnostic;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Component;
+
+import com.guillermo.leif.inputReaders.AllLineReader;
 
 @Component
 public class BinaryDiagnosticReader extends AllLineReader {

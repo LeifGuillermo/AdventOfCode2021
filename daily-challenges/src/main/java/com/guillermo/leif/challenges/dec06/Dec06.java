@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.guillermo.leif.challenges.Challenge;
-import com.guillermo.leif.inputReaders.lanternFishReader.LanternFishReader;
+import com.guillermo.leif.inputReaders.lanternFishes.LanternFishReader;
 
 import lombok.extern.slf4j.Slf4j;
 

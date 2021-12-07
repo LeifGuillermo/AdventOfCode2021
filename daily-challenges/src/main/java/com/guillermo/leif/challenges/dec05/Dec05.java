@@ -1,8 +1,8 @@
 package com.guillermo.leif.challenges.dec05;
 
 import com.guillermo.leif.challenges.Challenge;
-import com.guillermo.leif.inputReaders.xyGraphReader.XyCoordinate;
-import com.guillermo.leif.inputReaders.xyGraphReader.XyGraphReader;
+import com.guillermo.leif.inputReaders.xyGraph.XyCoordinate;
+import com.guillermo.leif.inputReaders.xyGraph.XyGraphReader;
 import lombok.extern.slf4j.Slf4j;
 import org.javatuples.KeyValue;
 import org.springframework.beans.factory.annotation.Autowired;

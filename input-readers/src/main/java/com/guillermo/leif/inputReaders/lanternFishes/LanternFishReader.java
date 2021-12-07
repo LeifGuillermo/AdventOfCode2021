@@ -1,4 +1,4 @@
-package com.guillermo.leif.inputReaders.lanternFishReader;
+package com.guillermo.leif.inputReaders.lanternFishes;
 
 import java.io.IOException;
 import java.util.List;

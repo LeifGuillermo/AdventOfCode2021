@@ -1,6 +1,6 @@
 package com.guillermo.leif.challenges.dec05;
 
-import com.guillermo.leif.inputReaders.xyGraphReader.XyCoordinate;
+import com.guillermo.leif.inputReaders.xyGraph.XyCoordinate;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.javatuples.KeyValue;
