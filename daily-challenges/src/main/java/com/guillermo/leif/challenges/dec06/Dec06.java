@@ -37,11 +37,20 @@ public class Dec06 implements Challenge {
 		log.info("inputAges: " + Arrays.toString(ages.toArray()));
 
 		int NUM_DAYS_TO_SPAWN = 256;
+		long start = System.currentTimeMillis();
 		for (int day = 0; day < NUM_DAYS_TO_SPAWN; day++) {
 			passOneSpawningDay();
 //			printFish();
 		}
-		countTotalFishAndLog();
+
+		Long sum = 0L;
+		for (Long count : lanternFishAgeCountMap.values()) {
+			sum += count;
+		}
+		long end = System.currentTimeMillis();
+		log.info("TOTAL TIME IN MILLISECONDS: " + (end-start));
+
+		log.info("SUM: " + sum);
 	}
 
 	// for debugging
@@ -59,11 +68,8 @@ public class Dec06 implements Challenge {
 	}
 
 	private void countTotalFishAndLog() {
-		Long sum = 0L;
-		for (Long count : lanternFishAgeCountMap.values()) {
-			sum += count;
-		}
-		log.info("SUM: " + sum);
+
+
 	}
 
 	private void passOneSpawningDay() {
