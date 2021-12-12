@@ -32,8 +32,10 @@ public class Dec08 implements Challenge {
 
         log.info("Day 8");
 
-        calculatePart1(filePath);
-//        calculatePart2(sampleFilePath);
+//        calculatePart1(filePath);
+        Integer sum = signalPatternNoteReader.getFourDigitValuesSum(filePath);
+        log.info("SUM: " + sum);
+
     }
 
     private void calculatePart2(String filePath) throws IOException {
