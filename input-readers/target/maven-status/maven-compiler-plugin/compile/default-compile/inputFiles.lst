@@ -5,6 +5,7 @@ A:\IdeaProjects\AdventOfCode2021\input-readers\src\main\java\com\guillermo\leif\
 A:\IdeaProjects\AdventOfCode2021\input-readers\src\main\java\com\guillermo\leif\inputReaders\signalPatternNotes\UniquePatternOutputCouple.java
 A:\IdeaProjects\AdventOfCode2021\input-readers\src\main\java\com\guillermo\leif\inputReaders\bingoBoard\BingoReader.java
 A:\IdeaProjects\AdventOfCode2021\input-readers\src\main\java\com\guillermo\leif\inputReaders\bingoBoard\BingoBoardDimensions.java
+A:\IdeaProjects\AdventOfCode2021\input-readers\src\main\java\com\guillermo\leif\inputReaders\caveMap\CaveMapHeightReader.java
 A:\IdeaProjects\AdventOfCode2021\input-readers\src\main\java\com\guillermo\leif\inputReaders\bingoBoard\BoardElement.java
 A:\IdeaProjects\AdventOfCode2021\input-readers\src\main\java\com\guillermo\leif\inputReaders\bingoBoard\SingleBingoBoard.java
 A:\IdeaProjects\AdventOfCode2021\input-readers\src\main\java\com\guillermo\leif\inputReaders\bingoBoard\Util.java

@@ -1,6 +1,7 @@
 com\guillermo\leif\challenges\dec05\Dec05.class
 com\guillermo\leif\challenges\dec01\Challenge1.class
 com\guillermo\leif\challenges\dec06\LanternFish.class
+com\guillermo\leif\challenges\dec09\Challenge9.class
 com\guillermo\leif\challenges\dec04\Challenge4.class
 com\guillermo\leif\challenges\dec08\Dec08.class
 com\guillermo\leif\challenges\dec02\Dec02.class
@@ -21,3 +22,4 @@ com\guillermo\leif\challenges\dec06\Challenge6.class
 com\guillermo\leif\challenges\dec05\OceanFloorCoordinate.class
 com\guillermo\leif\challenges\dec05\OceanFloor$VentDirection.class
 com\guillermo\leif\challenges\dec05\OceanFloor$1.class
+com\guillermo\leif\challenges\dec09\Dec09.class

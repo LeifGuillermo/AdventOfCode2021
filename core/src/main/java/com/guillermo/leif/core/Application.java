@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class Application {
-    private Challenge challenge;
+    private final Challenge challenge;
 
     // == constructors ==
     // To change the challenge to be solved, just change the parameter annotation.

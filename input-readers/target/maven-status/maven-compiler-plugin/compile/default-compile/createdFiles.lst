@@ -2,6 +2,7 @@ com\guillermo\leif\inputReaders\xyGraph\XyCoordinate$XyCoordinateBuilder.class
 com\guillermo\leif\inputReaders\bingoBoard\SingleBingoBoard.class
 com\guillermo\leif\inputReaders\crabLocation\CrabLocationReader.class
 com\guillermo\leif\inputReaders\bingoBoard\BingoReader.class
+com\guillermo\leif\inputReaders\caveMap\CaveMapHeightReader.class
 com\guillermo\leif\inputReaders\signalPatternNotes\UniquePatternOutputCouple.class
 com\guillermo\leif\inputReaders\AllLineReader.class
 com\guillermo\leif\inputReaders\bingoBoard\Util.class
