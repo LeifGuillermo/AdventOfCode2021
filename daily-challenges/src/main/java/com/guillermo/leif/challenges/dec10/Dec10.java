@@ -15,7 +15,6 @@ import java.util.*;
 @Challenge10
 public class Dec10 implements Challenge {
 
-    Integer openBrackets = 0;
     private NavigationSubsystemReader navigationSubsystemReader;
 
     @Autowired
@@ -112,7 +111,7 @@ public class Dec10 implements Challenge {
     private Long calculateIncompleteLineScoreSum(List<List<String>> incompleteLines) {
 
         List<Long> lineScores = new ArrayList<>();
-        for(List<String> line : incompleteLines) {
+        for (List<String> line : incompleteLines) {
             lineScores.add(calculateSingleIncompleteLineScore(line));
         }
 
