@@ -3,7 +3,6 @@ package com.guillermo.leif.challenges.dec12.objects;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -15,14 +14,6 @@ public class Cavern {
     Boolean hasBeenVisited;
     CaveSize caveSize;
 
-    public Cavern(String name) {
-        if (StringUtils.isAllUpperCase(name)) {
-            this.caveSize = CaveSize.LARGE;
-        } else {
-            this.caveSize = CaveSize.SMALL;
-        }
-    }
-
     public Cavern(List<CaveSystem> caveSystemList, String caveName) {
         for (CaveSystem caveSystem : caveSystemList) {
             if (caveSystem.getCaveName().equals(caveName)) {
@@ -30,6 +21,12 @@ public class Cavern {
                 return;
             }
         }
+    }
+
+    public Cavern(String name, Boolean hasBeenVisited, CaveSize caveSize) {
+        this.name = name;
+        this.hasBeenVisited = hasBeenVisited;
+        this.caveSize = caveSize;
     }
 
     public Cavern(CaveSystem caveSystem) {

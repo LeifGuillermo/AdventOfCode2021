@@ -2,6 +2,7 @@ package com.guillermo.leif.challenges.dec12;
 
 import com.guillermo.leif.challenges.Challenge;
 import com.guillermo.leif.challenges.dec12.objects.CaveSystem;
+import com.guillermo.leif.challenges.dec12.objects.Cavern;
 import com.guillermo.leif.challenges.dec12.objects.PathContext;
 import com.guillermo.leif.challenges.dec12.objects.PathMapper;
 import com.guillermo.leif.inputReaders.CaveConnectionsReader;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -34,8 +36,8 @@ public class Dec12 implements Challenge {
         final String filePath = "daily-challenges/src/main/resources/inputFiles/day12/puzzleInput.txt";
         log.info("Day 12");
 
-        calculatePart1(filePath);
-//		calculatePart2(sampleFilePath1);
+//        calculatePart1(filePath);
+        calculatePart2(filePath);
     }
 
     private void calculatePart1(String filePath) throws Exception {
@@ -54,6 +56,39 @@ public class Dec12 implements Challenge {
 //        for (PathContext path : pathMapper.getAllPaths()) {
 //            log.info(path.toString());
 //        }
+
+    }
+
+    private void calculatePart2(String filePath) throws Exception {
+        log.info("Part 2");
+        List<CaveSystem> allCaves = buildNewConnectionMapCaveList(filePath);
+
+        List<Cavern> smallCaverns = allCaves.stream().filter(cave -> !cave.isLargeCave()).map(Cavern::new)
+                .filter(cavern -> !cavern.getName().equals("start") && !cavern.getName().equals("end"))
+                .collect(Collectors.toList());
+
+        log.debug("SmallCaverns: " + Arrays.toString(smallCaverns.toArray()));
+
+        List<PathContext> allPaths = new ArrayList<>();
+        for (Cavern cavern : smallCaverns) {
+            PathMapper pathMapper = new PathMapper();
+            PathContext pathContext = new PathContext();
+            pathContext.setRevisitableSmallCaveName(cavern.getName());
+            pathContext.setRevisitableCaveWasVisited(false);
+
+            log.info(pathContext.metaInfo());
+
+            pathMapper.mapPathsFromStartToEnd2(allCaves, "start", pathContext);
+
+            allPaths.addAll(pathMapper.getAllPaths());
+        }
+
+        Set<PathContext> pathContextSet = new HashSet<>(allPaths);
+
+        for (PathContext path : pathContextSet) {
+            log.info(path.toString());
+        }
+        log.info("Num Paths: " + pathContextSet.size());
 
     }
 
@@ -82,11 +117,6 @@ public class Dec12 implements Challenge {
         for (CaveSystem cave : caveList) {
             cave.buildCaveConnections(caveList);
         }
-    }
-
-    private void calculatePart2(String filePath) throws IOException {
-        log.info("Part 2");
-
     }
 
 
