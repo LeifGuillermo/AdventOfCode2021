@@ -1,7 +1,7 @@
 package com.guillermo.leif.core;
 
 import com.guillermo.leif.challenges.Challenge;
-import com.guillermo.leif.challenges.dec14.Challenge14;
+import com.guillermo.leif.challenges.dec15.Challenge15;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -19,7 +19,7 @@ public class Application {
     // To change the challenge to be solved, just change the parameter annotation.
     // Each challenge should have its own annotation.
     @Autowired
-    public Application(@Challenge14 Challenge challenge) {
+    public Application(@Challenge15 Challenge challenge) {
         this.challenge = challenge;
     }
 
