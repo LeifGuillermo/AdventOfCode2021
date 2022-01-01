@@ -52,89 +52,18 @@ public class Dec15 implements Challenge {
         Cave endCave = caveMap.get(caveMap.size() - 1).get(caveMap.get(0).size() - 1);
         log.info(endCave.getLowestKnownRiskToStart().toString());
 
-//        List<Path> contexts = findPaths(startCave, endCave, new Path(), new ArrayList<>());
-//        for (Path context : contexts) {
-//            log.info(context.toString());
-//        }
-
     }
 
-    private List<Path> findPaths(Cave currentCave, Cave endCave, Path path, List<Path> paths) {
-        currentCave.setVisited(true);
-
-        Path newPath = new Path();
-        List<Cave> caves = new ArrayList<>(path.getCaves());
-        caves.add(currentCave);
-        newPath.setRisk(path.getRisk());
-        if (!currentCave.getName().equals(START_CAVE_NAME)) {
-            newPath.addRisk(currentCave.getRisk());
-        }
-        newPath.setCaves(caves);
-
-
-        // found the end-node
-        if (currentCave.equals(endCave)) {
-            newPath.setValidPathToEnd(true);
-            paths.add(newPath);
-            return paths;
-        }
-        paths.add(newPath);
-
-        Cave nextCave = getVisitableCaveWithLeastRisk(currentCave, path);
-        while (nextCave == null) {
-
-        }
-        if (nextCave == null) {
-            newPath.setValidPathToEnd(false);
-            paths.add(newPath);
-            return paths;
-        }
-
-        List<Path> lowRisKPath = findPaths(nextCave, endCave, newPath, paths);
-        paths.addAll(lowRisKPath);
-
-
-        return paths;
+    private void calculatePart2(String filePath) throws Exception {
+        log.info("Part 2");
     }
 
-    private Cave getVisitableCaveWithLeastRisk(Cave cave, Path path) {
-        List<Cave> cavesToCompare = new ArrayList<>();
-        if (null != cave.getRight() && !path.caveHasBeenVisited(cave.getRight())) {
-            cavesToCompare.add(cave.getRight());
-        }
-        if (null != cave.getDown() && !path.caveHasBeenVisited(cave.getDown())) {
-            cavesToCompare.add(cave.getDown());
-        }
-        if (null != cave.getUp() && !path.caveHasBeenVisited(cave.getUp())) {
-            cavesToCompare.add(cave.getUp());
-        }
-        if (null != cave.getLeft() && !path.caveHasBeenVisited(cave.getLeft())) {
-            cavesToCompare.add(cave.getLeft());
-        }
-
-        if (cavesToCompare.isEmpty()) {
-            return null;
-        }
-
-        Cave lowestRiskCave = cavesToCompare.get(0);
-        for (Cave c : cavesToCompare) {
-            if (c.getRisk() < lowestRiskCave.getRisk()) {
-                lowestRiskCave = c;
-            }
-        }
-
-        return lowestRiskCave;
-    }
 
     private void printRiskMap(List<List<Integer>> riskMap) {
         for (List<Integer> row : riskMap) {
             log.info(Arrays.toString(row.toArray()));
         }
 
-    }
-
-    private void calculatePart2(String filePath) throws Exception {
-        log.info("Part 2");
     }
 
     private List<List<Cave>> convertRiskMapToCaveMap(List<List<Integer>> riskMap) {
@@ -158,12 +87,11 @@ public class Dec15 implements Challenge {
                 if (Objects.equals(cave.getName(), START_CAVE_NAME)) {
                     cave.setLowestRiskNeighbor(null);
                     cave.setLowestKnownRiskToStart(0);
-                    cave.setRisk(0);
                 }
-                cave.setUp(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getUp()));
                 cave.setDown(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getDown()));
-                cave.setLeft(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getLeft()));
                 cave.setRight(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getRight()));
+                cave.setUp(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getUp()));
+                cave.setLeft(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getLeft()));
             }
         }
     }
