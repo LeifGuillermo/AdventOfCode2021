@@ -10,4 +10,4 @@ You can run/debug the project from intellij by setting up an Application run con
 To run the solutions for any particular day, simply go to the core module and change the annotation in the ApplicationContextCreator constructor (In core/src/main/java/com/guillermo/leif/Application.java).
 The code for the challenges is available in the daily-challenges module.
 
-The file-input reader is probably currently difficult to navigate, just know that this module was used to read the inputs from the input files stored in the daily challenges resources folder.
+The file-input reader is somewhat difficult to navigate, as I didn't use day-names for the different readers like I probably should have (i.e. FileReaderDay12 vs. CaveMapReader) just know that this module was used to read the inputs from the input files stored in the daily challenges resources folder, and generally doesn't do a whole lot of important logic realated to solving the challenges.
