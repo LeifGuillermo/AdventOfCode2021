@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 @Slf4j
@@ -18,6 +19,7 @@ import java.util.List;
 @Challenge15
 public class Dec15 implements Challenge {
     private static final String day = "day15";
+    private String START_CAVE_NAME = "startCave";
 
     private InputReader inputReader;
 
@@ -32,7 +34,7 @@ public class Dec15 implements Challenge {
         final String filePath = "daily-challenges/src/main/resources/inputFiles/" + day + "/puzzleInput.txt";
         log.info(day);
 
-        calculatePart1(sampleFilePath1);
+        calculatePart1(filePath);
 //        calculatePart2(sampleFilePath1);
     }
 
@@ -40,17 +42,20 @@ public class Dec15 implements Challenge {
         log.info("Part 1");
         List<List<Integer>> riskMap = inputReader.readAllLines(filePath);
         List<List<Cave>> caveMap = convertRiskMapToCaveMap(riskMap);
+        Cave startCave = caveMap.get(0).get(0);
+        startCave.setName(START_CAVE_NAME);
+
         updateAllCavesWithNeighbors(caveMap);
         printRiskMap(riskMap);
+        updateCaveMapWithLowestRiskMap(caveMap);
 
-        Cave startCave = caveMap.get(0).get(0);
-        startCave.setName("startCave");
         Cave endCave = caveMap.get(caveMap.size() - 1).get(caveMap.get(0).size() - 1);
+        log.info(endCave.getLowestKnownRiskToStart().toString());
 
-        List<Path> contexts = findPaths(startCave, endCave, new Path(), new ArrayList<>());
-        for (Path context : contexts) {
-            log.info(context.toString());
-        }
+//        List<Path> contexts = findPaths(startCave, endCave, new Path(), new ArrayList<>());
+//        for (Path context : contexts) {
+//            log.info(context.toString());
+//        }
 
     }
 
@@ -60,56 +65,65 @@ public class Dec15 implements Challenge {
         Path newPath = new Path();
         List<Cave> caves = new ArrayList<>(path.getCaves());
         caves.add(currentCave);
-        if (!currentCave.getName().equals("startCave")) {
+        newPath.setRisk(path.getRisk());
+        if (!currentCave.getName().equals(START_CAVE_NAME)) {
             newPath.addRisk(currentCave.getRisk());
         }
         newPath.setCaves(caves);
 
-        // ran into a dead-end or path is getting considerably long and probably is not low-risk.
-        if (newPath.getCaves().size() > 30 ||
-                (null == currentCave.getUp() || newPath.caveHasBeenVisited(currentCave.getUp()))
-                &&
-                (null == currentCave.getDown() || newPath.caveHasBeenVisited(currentCave.getDown()))
-                &&
-                (null == currentCave.getLeft() || newPath.caveHasBeenVisited(currentCave.getLeft()))
-                &&
-                (null == currentCave.getRight() || newPath.caveHasBeenVisited(currentCave.getRight()))) {
+
+        // found the end-node
+        if (currentCave.equals(endCave)) {
+            newPath.setValidPathToEnd(true);
+            paths.add(newPath);
+            return paths;
+        }
+        paths.add(newPath);
+
+        Cave nextCave = getVisitableCaveWithLeastRisk(currentCave, path);
+        while (nextCave == null) {
+
+        }
+        if (nextCave == null) {
             newPath.setValidPathToEnd(false);
             paths.add(newPath);
             return paths;
         }
 
-        paths.add(newPath);
-
-        // found the end-node
-        if (currentCave.equals(endCave)) {
-            return paths;
-        }
-
-        if (null != currentCave.getRight() && !path.caveHasBeenVisited(currentCave.getRight())) {
-            List<Path> rightContexts = findPaths(currentCave.getRight(), endCave, newPath, paths);
-            paths.addAll(rightContexts);
-        }
-        if (null != currentCave.getDown() && !path.caveHasBeenVisited(currentCave.getDown())) {
-            List<Path> downContexts = findPaths(currentCave.getDown(), endCave, newPath, paths);
-            paths.addAll(downContexts);
-
-        }
-
-        if (null != currentCave.getUp() && !path.caveHasBeenVisited(currentCave.getUp())) {
-            List<Path> upContexts = findPaths(currentCave.getUp(), endCave, newPath, paths);
-            paths.addAll(upContexts);
-        }
-        if (null != currentCave.getLeft() && !path.caveHasBeenVisited(currentCave.getLeft())) {
-            List<Path> leftContexts = findPaths(currentCave.getLeft(), endCave, newPath, paths);
-            paths.addAll(leftContexts);
-
-        }
-
+        List<Path> lowRisKPath = findPaths(nextCave, endCave, newPath, paths);
+        paths.addAll(lowRisKPath);
 
 
         return paths;
+    }
 
+    private Cave getVisitableCaveWithLeastRisk(Cave cave, Path path) {
+        List<Cave> cavesToCompare = new ArrayList<>();
+        if (null != cave.getRight() && !path.caveHasBeenVisited(cave.getRight())) {
+            cavesToCompare.add(cave.getRight());
+        }
+        if (null != cave.getDown() && !path.caveHasBeenVisited(cave.getDown())) {
+            cavesToCompare.add(cave.getDown());
+        }
+        if (null != cave.getUp() && !path.caveHasBeenVisited(cave.getUp())) {
+            cavesToCompare.add(cave.getUp());
+        }
+        if (null != cave.getLeft() && !path.caveHasBeenVisited(cave.getLeft())) {
+            cavesToCompare.add(cave.getLeft());
+        }
+
+        if (cavesToCompare.isEmpty()) {
+            return null;
+        }
+
+        Cave lowestRiskCave = cavesToCompare.get(0);
+        for (Cave c : cavesToCompare) {
+            if (c.getRisk() < lowestRiskCave.getRisk()) {
+                lowestRiskCave = c;
+            }
+        }
+
+        return lowestRiskCave;
     }
 
     private void printRiskMap(List<List<Integer>> riskMap) {
@@ -136,6 +150,36 @@ public class Dec15 implements Challenge {
         }
 
         return caveMap;
+    }
+
+    private void updateCaveMapWithLowestRiskMap(List<List<Cave>> caveMap) {
+        for (List<Cave> row : caveMap) {
+            for (Cave cave : row) {
+                if (Objects.equals(cave.getName(), START_CAVE_NAME)) {
+                    cave.setLowestRiskNeighbor(null);
+                    cave.setLowestKnownRiskToStart(0);
+                    cave.setRisk(0);
+                }
+                cave.setUp(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getUp()));
+                cave.setDown(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getDown()));
+                cave.setLeft(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getLeft()));
+                cave.setRight(setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(cave, cave.getRight()));
+            }
+        }
+    }
+
+    private Cave setNeighborCaveLowestRiskToThisCaveIfItIsLowestRiskPath(Cave thisCave, Cave neighborCave) {
+        if (neighborCave == null) {
+            return null;
+        }
+        Integer thisRisk = thisCave.getLowestKnownRiskToStart();
+        Integer neighborRiskTotal = neighborCave.getLowestKnownRiskToStart();
+        int thisRiskToCompare = thisRisk + neighborCave.getRisk();
+        if (neighborRiskTotal == null || thisRiskToCompare < neighborRiskTotal) {
+            neighborCave.setLowestRiskNeighbor(thisCave);
+            neighborCave.setLowestKnownRiskToStart(thisRiskToCompare);
+        }
+        return neighborCave;
     }
 
     private void updateAllCavesWithNeighbors(List<List<Cave>> caveMap) {

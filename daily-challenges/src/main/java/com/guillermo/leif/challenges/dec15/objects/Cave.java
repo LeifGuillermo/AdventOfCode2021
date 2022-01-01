@@ -19,6 +19,9 @@ public class Cave {
     Cave up = null;
     Cave down = null;
 
+    Cave lowestRiskNeighbor = null;
+    Integer lowestKnownRiskToStart = null;
+
     public Cave(Integer risk, int x, int y) {
         visited = false;
         this.x = x;
